@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Principal;
 
 namespace HeroTest.Models;
 
@@ -68,4 +69,30 @@ public partial class SampleContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public override int SaveChanges()
+    {
+        var now = DateTime.UtcNow;
+
+        foreach (var changedEntity in ChangeTracker.Entries())
+        {
+            if (changedEntity.Entity is IEntity entity)
+            {
+                switch (changedEntity.State)
+                {
+                    case EntityState.Added:
+                        entity.CreatedOn = now;
+                        entity.UpdatedOn = now;
+                        break;
+                    case EntityState.Modified:
+                        Entry(entity).Property(x => x.CreatedOn).IsModified = false;
+                        Entry(entity).Property(x => x.CreatedOn).IsModified = false;
+                        entity.UpdatedOn = now;
+                        break;
+                }
+            }
+        }
+
+        return base.SaveChanges();
+    }
 }

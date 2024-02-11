@@ -1,0 +1,41 @@
+<div>
+    <h2>Add Hero</h2>
+    
+    <div class="register-form">
+      <form class="register-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="form-group mb-3">
+          <label for="name">Name:</label>
+          <input type="text" formControlName="name" id="name" class="form-control" 
+          required [ngClass]="{ 'is-invalid': submitted && form.controls.name.errors }">
+          <div *ngIf="submitted && form.controls.name.errors" class="invalid-feedback">
+            <div *ngIf="form.controls.name.errors['required']">Name is required</div>
+          </div>
+        </div>
+    
+        <div class="form-group mb-3">
+          <label for="alias">Alias:</label>
+          <input type="text" formControlName="alias" id="alias" class="form-control" 
+          [ngClass]="{ 'is-invalid': submitted && form.controls.alias.errors }" required>
+          <div *ngIf="submitted && form.controls.alias.errors" class="invalid-feedback">
+            <div *ngIf="form.controls.alias.errors['required']">Alias is required</div>
+          </div>
+        </div>
+    
+        <div class="form-group mb-3">
+          <label for="brand">Brand:</label>
+          <select formControlName="brand" id="brand" class="form-select" 
+          [ngClass]="{ 'is-invalid': submitted && form.controls.brand.errors }" required>
+            <option *ngFor="let b of brands" [value]="b.Id">{{ b.Name }}</option>
+          </select>
+          <div *ngIf="submitted && form.controls.brand.errors" class="invalid-feedback">
+            <div *ngIf="form.controls.brand.errors['required']">Brand must be selected</div>
+          </div>
+        </div>
+    
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>

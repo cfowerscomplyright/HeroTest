@@ -1,6 +1,6 @@
 ﻿namespace HeroTest.Models;
 
-public partial class Brand
+public partial class Brand : IEntity
 {
     public Brand()
     {
@@ -14,3 +14,10 @@ public partial class Brand
     public DateTime UpdatedOn { get; set; }
     public virtual ICollection<Hero> Heroes { get; set; }
 }
+
+public class BrandDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+

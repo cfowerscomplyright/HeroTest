@@ -4,25 +4,25 @@
 <p>Also make the Add Hero link in nav go to a new page with a form that will add a new Hero to Heroes table in db and then redirect back to this page.  Do not worry about validating duplicate hero names</p>
 <p>The delete button should flag the hero in the db as IsActive = 0</p>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Alias</th>
-      <th>Brand</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Superman</td>
-      <td>Clark Kent</td>
-      <td>DC</td>
-      <td>
-        <button type="button" class="btn btn-danger">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table table-hover" *ngIf="heroes && heroes.length > 0">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Alias</th>
+          <th>Brand</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let hero of heroes">
+          <td>{{ hero.Id }}</td>
+          <td>{{ hero.Name }}</td>
+          <td>{{ hero.Alias }}</td>
+          <td>{{ hero.Brand?.Name }}</td>
+          <td>
+            <button (click)="deleteHero(hero.Id)" type="button" class="btn btn-danger">Delete</button>
+          </td>   
+      </tr>        
+      </tbody>
+  </table>
