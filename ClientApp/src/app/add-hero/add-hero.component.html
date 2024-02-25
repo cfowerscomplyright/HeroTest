@@ -1,0 +1,21 @@
+<!-- add-hero.component.html -->
+<div>
+  <h2>Add Hero</h2>
+  <form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name" />
+    </div>
+    <div>
+      <label for="alias">Alias:</label>
+      <input type="text" id="alias" formControlName="alias" />
+    </div>
+    <div>
+      <label for="brandId">Brand:</label>
+      <input type="number" id="brandId" formControlName="brandId" />
+    </div>
+    <div>
+      <button type="submit">Add Hero</button>
+    </div>
+  </form>
+</div>

@@ -9,6 +9,12 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { AddHeroComponent } from './add-hero/add-hero.component';
+import { HeroListComponent } from './hero-list/hero-list.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HeroService } from './hero.service';
+
 
 @NgModule({
   declarations: [	
@@ -17,17 +23,21 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
+    HeroListComponent,
+    AddHeroComponent,
    ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'test', component: FetchDataComponent },
     ])
   ],
-  providers: [],
+  providers: [HeroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,26 @@
+<!-- hero-list.component.html -->
+<div>
+  <h2>Hero List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Alias</th>
+        <th>Brand</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hero of heroes">
+        <td>{{ hero.id }}</td>
+        <td>{{ hero.name }}</td>
+        <td>{{ hero.alias }}</td>
+        <td>{{ hero.brand.name }}</td>
+        <td>
+          <button (click)="deleteHero(hero.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
