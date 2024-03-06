@@ -1,32 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HeroTest.Models;
+using HeroTest.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HeroTest.Controllers;
+
 [ApiController]
 [Route("[controller]")]
 public class HeroesController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
     private readonly ILogger<HeroesController> _logger;
+    private readonly SampleContext _context;
+    private readonly IHeroService _heroService;
 
-    public HeroesController(ILogger<HeroesController> logger)
+    public HeroesController(ILogger<HeroesController> logger, SampleContext context, IHeroService heroService)
     {
         _logger = logger;
+        _context = context;
+        _heroService = heroService;
     }
 
     [HttpGet]
-    public IEnumerable<WeatherForecast> Get()
+    public IEnumerable<HeroDto> Get()
     {
-        return Enumerable.Range(1, 500).Select(index => new WeatherForecast
-        {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        var heros = _heroService.GetAllHeros();
+        return heros;
+    }
+
+    [HttpPost]
+    public void Post(HeroDto hero)
+    {
+        _heroService.AddHero(hero);
+    }
+
+    [HttpDelete]
+    public void Delete(int id)
+    {
+        _heroService.DeleteHero(id);
+
     }
 }
 

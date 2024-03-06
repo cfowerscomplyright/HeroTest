@@ -8,12 +8,14 @@ const PROXY_CONFIG = [
     context: [
       "/weatherforecast",
       "/heroes",
+      "/brand",
    ],
     target: target,
     secure: false,
     headers: {
       Connection: 'Keep-Alive'
-    }
+    },
+    timeout: 300000
   }
 ]
 
