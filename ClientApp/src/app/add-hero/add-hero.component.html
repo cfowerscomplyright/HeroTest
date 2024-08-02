@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" [(ngModel)]="hero.name" name="name" required>
+    </div>
+    <div>
+      <label for="alias">Alias:</label>
+      <input type="text" id="alias" [(ngModel)]="hero.alias" name="alias">
+    </div>
+    <div>
+      <label for="isActive">Is Active:</label>
+      <input type="checkbox" id="isActive" [(ngModel)]="hero.isActive" name="isActive">
+    </div>
+    <div>
+      <label for="createdOn">Created On:</label>
+      <input type="date" id="createdOn" [(ngModel)]="hero.createdOn" name="createdOn" required>
+    </div>
+    <div>
+      <label for="updatedOn">Updated On:</label>
+      <input type="date" id="updatedOn" [(ngModel)]="hero.updatedOn" name="updatedOn" required>
+    </div>
+    <div>
+      <label for="brandId">Brand ID:</label>
+      <input type="number" id="brandId" [(ngModel)]="hero.brandId" name="brandId" required>
+    </div>
+    <button type="submit">Add Hero</button>
+  </form>

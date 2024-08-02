@@ -1,32 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HeroTest.Models;
+using HeroTest.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HeroTest.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class HeroesController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
 
-    private readonly ILogger<HeroesController> _logger;
+  private readonly ILogger<HeroesController> _logger;
+  private readonly IHeroService _heroService;
 
-    public HeroesController(ILogger<HeroesController> logger)
-    {
-        _logger = logger;
-    }
+  public HeroesController(ILogger<HeroesController> logger, IHeroService service)
+  {
+    _logger = logger;
+    _heroService = service;
+  }
 
-    [HttpGet]
-    public IEnumerable<WeatherForecast> Get()
-    {
-        return Enumerable.Range(1, 500).Select(index => new WeatherForecast
-        {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
-    }
+  [HttpGet]
+  public IEnumerable<Hero> Get() => _heroService.GetHeroes();
+
+  [HttpPost]
+  public async Task<Hero> Post(Hero entity) => await _heroService.AddHeroAsync(entity);
+
+  [HttpDelete]
+  [Route("{id}")]
+  public async void Delete(int id) => await _heroService.DeleteHeroAsync(id);
 }
-
